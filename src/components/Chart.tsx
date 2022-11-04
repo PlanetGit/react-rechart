@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { Container, Typography, Grid, Box } from '@mui/material';
 import DaySelector from './DaySelector';
-import getMultifirm from '../utils/chart';
+import { getMultifirm, numberFormatter } from '../utils/chart';
 import './Chart.css';
 
 const dateList = ['7', '14', '30', '90', '180', '365', 'all'];
@@ -36,18 +36,6 @@ const Chart = (props: any) => {
   const updateDay = (newValue: number) => {
     setDay(newValue);
     setIsLoading(false);
-  }
-
-  const numberFormatter = (num: number) => {
-    if (num > 1000000000) {
-      return (num / 1000000000).toString() + 'B';
-    } else if (num > 1000000) {
-      return (num / 1000000).toString() + 'M';
-    } else if (num > 1000) {
-      return (num / 1000).toString() + 'K';
-    } else {
-      return num.toString();
-    }
   }
 
   return (
