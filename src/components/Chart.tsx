@@ -15,12 +15,11 @@ interface ChartInfo {
 
 const Chart = (props: any) => {
   const { name } = props;
-  const [isLoading, setIsLoading] = useState(false);
   const [chartInfo, setChartInfo] = useState<ChartInfo>();
   const [data, setData] = useState([]);
   const [day, setDay] = useState(2);
 
-  useEffect(() => {
+  const updateChartData = () => {
     (async () => {
       const chartData = await getMultifirm();
       const showData = (dateList[day] !== 'all') ? chartData.tvlStakedHistory.slice(0, dateList[day]) : chartData.tvlStakedHistory;
@@ -29,13 +28,16 @@ const Chart = (props: any) => {
       // Set show data
       setData(showData);
       setChartInfo(chartData);
-      setIsLoading(true);
     })();
-  }, [isLoading, day]);
+  }
+
+  useEffect(() => {
+    updateChartData();
+  });
 
   const updateDay = (newValue: number) => {
     setDay(newValue);
-    setIsLoading(false);
+    updateChartData();
   }
 
   return (
@@ -53,7 +55,7 @@ const Chart = (props: any) => {
             <DaySelector updateDay={updateDay} day={day} />
           </Grid>
         </Grid>
-        {isLoading &&
+        {data &&
           <AreaChart width={750} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
