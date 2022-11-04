@@ -42,7 +42,7 @@ const Chart = (props: any) => {
     <Container maxWidth="md">
       <Box className="subTitle">
         <Typography variant="subtitle1" color="text.secondary" align="left">{chartInfo ? `${chartInfo.farm}` : ''}</Typography>
-        <Typography variant="subtitle2" color="text.secondary" align="left">{chartInfo ? `: ${chartInfo.asset}` : ''}</Typography>
+        <Typography variant="subtitle2" color="white" align="left">{chartInfo ? `: ${chartInfo.asset}` : ''}</Typography>
       </Box>
       <Box className="chartContainer">
         <Grid container spacing={2} columns={16}>
